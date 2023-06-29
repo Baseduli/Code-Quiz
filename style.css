@@ -1,0 +1,13 @@
+.highScorepage {
+    color: purple;
+}
+
+.gameTimer {
+    display: flex;
+    align-items: end;
+    justify-content: end;
+}
+
+.questionBox {
+    text-align: center;
+}
