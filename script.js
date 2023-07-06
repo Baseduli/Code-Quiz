@@ -31,13 +31,17 @@ var startButton = document.querySelector(".btn");
 var secondsLeft = 60;
 var timeEl = document.querySelector(".gameTimer");
 var questionBox = document.querySelector(".questionBox");
-
-
+var score = 0
 
 startButton.addEventListener("click", function () {
     var timerInterval = setInterval(function () {
         secondsLeft--;
         timeEl.textContent = "Time left: " + secondsLeft;
+        if (secondsLeft > 0) {
+            questionBox.textContent = "";
+            questionBox.textContent = quizQuestions.splice(0);
+
+        }
 
         if (secondsLeft === 0) {
             var initials = prompt("Enter your initials");
