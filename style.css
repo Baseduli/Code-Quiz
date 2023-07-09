@@ -2,6 +2,10 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    color: #bc60e7;
+}
+
 .highScorepage {
     color: purple;
 }
@@ -14,10 +18,23 @@ a {
 
 .questionBox {
     display: flex;
-    align-items: Center;
-    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-evenly;
     height: 500px;
     width: 100%;
     background-color: #f5efd6;
 
+}
+
+.btn {
+    align-items: center;
+    background-color: #351c75;
+    color: white;
+    border-radius: 6px;
+    padding: 12px;
+}
+
+.btn:hover {
+    background-color: #bc60e7;
 }
