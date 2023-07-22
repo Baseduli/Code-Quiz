@@ -1,4 +1,4 @@
-const quizQuestions = [
+var quizQuestions = [
     {
         question: "Which of the following keywords is used to define a variable in JavaScript?",
         choices: ["let", "var", "for", "git"],
@@ -32,23 +32,53 @@ var secondsLeft = 60;
 var timeEl = document.querySelector(".gameTimer");
 var questionBox = document.querySelector(".questionBox");
 var score = 0
+var currentQuestionIndex = 0;
+
+function displayQuestion(index) {
+    var question = quizQuestions[index];
+    questionBox.textContent = question.question + "\n";
+
+    for (var i = 0; i < question.choices.length; i++) {
+        var choiceButton = document.createElement("button");
+        choiceButton.textContent = question.choices[i];
+        choiceButton.addEventListener("click", function () {
+            checkAnswer(this.textContent);
+        });
+        questionBox.appendChild(choiceButton);
+    }
+};
+
+function checkAnswer(selectedChoice) {
+    var currentQuestion = quizQuestions[currentQuestionIndex];
+    if (selectedChoice === currentQuestion.answer + 1) {
+        score++;
+    } else { secondsLeft - 10; }
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex < quizQuestions.length) {
+        displayQuestion(currentQuestionIndex);
+
+    } else {
+        clearInterval(timerInterval);
+        var initials = prompt("Enter your initials");
+        sendMessage(playAgain);
+    }
+};
+
 
 startButton.addEventListener("click", function () {
     var timerInterval = setInterval(function () {
         secondsLeft--;
         timeEl.textContent = "Time left: " + secondsLeft;
-        if (secondsLeft > 0) {
-            questionBox.textContent = "";
-            questionBox.textContent = quizQuestions.splice(0);
-
-        }
-
         if (secondsLeft === 0) {
-            var initials = prompt("Enter your initials");
             clearInterval(timerInterval);
+            var initials = prompt("Enter your initials");
             sendMessage(playAgain);
+
         }
-    }, 1000)
+    }, 1000);
+
+    displayQuestion(currentQuestionIndex);
 });
 
 
@@ -67,4 +97,5 @@ startButton.addEventListener("click", function () {
        choicesElement.appendChild(choiceElement);
    }
    questionBox.appendChild(choicesElement);
+   questionBox.textContent += i + 1 + ". " + question.choices[i] + "\n";
 };*/

@@ -27,7 +27,7 @@ a:hover {
 
 }
 
-.btn {
+button {
     align-items: center;
     background-color: #351c75;
     color: white;
@@ -35,6 +35,6 @@ a:hover {
     padding: 12px;
 }
 
-.btn:hover {
+button:hover {
     background-color: #bc60e7;
 }
