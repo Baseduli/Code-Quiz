@@ -33,13 +33,14 @@ var timeEl = document.querySelector(".gameTimer");
 var questionBox = document.querySelector(".questionBox");
 var score = 0
 var currentQuestionIndex = 0;
+var timerInterval;
 
 function displayQuestion(index) {
     var question = quizQuestions[index];
     questionBox.textContent = question.question + "\n";
 
     for (var i = 0; i < question.choices.length; i++) {
-        var choiceButton = document.createElement("button");
+        let choiceButton = document.createElement("button");
         choiceButton.textContent = question.choices[i];
         choiceButton.addEventListener("click", function () {
             checkAnswer(this.textContent);
@@ -50,9 +51,12 @@ function displayQuestion(index) {
 
 function checkAnswer(selectedChoice) {
     var currentQuestion = quizQuestions[currentQuestionIndex];
-    if (selectedChoice === currentQuestion.answer + 1) {
+    if (selectedChoice === currentQuestion.choices[currentQuestion.answer]) {
         score++;
-    } else { secondsLeft - 10; }
+    } else {
+        secondsLeft = Math.max(secondsLeft - 10, 0);
+    }
+
     currentQuestionIndex++;
 
     if (currentQuestionIndex < quizQuestions.length) {
@@ -61,26 +65,48 @@ function checkAnswer(selectedChoice) {
     } else {
         clearInterval(timerInterval);
         var initials = prompt("Enter your initials");
-        sendMessage(playAgain);
+        sendMessage();
+        var highScore = localStorage.getItem("highScore");
+        if (!highScore || score > parseInt(highScore)) {
+            localStorage.setItem("highScore", score);
+        }
     }
 };
 
+function sendMessage() {
+    alert("Quiz ended!\nYour score: " + score);
+};
+
+function startQuiz() {
+    secondsLeft = 60;
+    score = 0;
+    currentQuestionIndex = 0;
+    timeEl.textContent = "Time left" + secondsLeft;
+}
+
 
 startButton.addEventListener("click", function () {
-    var timerInterval = setInterval(function () {
+
+
+    timerInterval = setInterval(function () {
         secondsLeft--;
         timeEl.textContent = "Time left: " + secondsLeft;
         if (secondsLeft === 0) {
             clearInterval(timerInterval);
             var initials = prompt("Enter your initials");
-            sendMessage(playAgain);
-
+            sendMessage();
+            var highScore = localStorage.getItem("highScore");
+            if (!highScore || score > parseInt(highScore)) {
+                localStorage.setItem("highScore", score);
+            }
         }
     }, 1000);
 
     displayQuestion(currentQuestionIndex);
-});
+}
+);
 
+startButton.addEventListener("click", startQuiz);
 
 
 
