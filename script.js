@@ -1,31 +1,32 @@
 var quizQuestions = [
     {
         question: "Which of the following keywords is used to define a variable in JavaScript?",
-        choices: ["let", "var", "for", "git"],
+        choices: ["1. let", "2. var", "3. for", "4. git"],
         answer: 1,
     },
     {
         question: "Which of the following methods is used to access HTML Elements using Javascript?",
-        choices: ["getElementbyId()", "getElementbyClassName()", "Both A and B", "None of the above"],
+        choices: ["1. getElementbyId()", "2. getElementbyClassName()", "3. Both A and B", "4. None of the above"],
         answer: 2,
     },
     {
         question: "Which of the following is used to create web pages?",
-        choices: ["HTML", "Toaster", "ChatGPT", "DVD"],
+        choices: ["1. HTML", "2. Toaster", "3. ChatGPT", "4. DVD"],
         answer: 0,
     },
     {
         question: "Which of the following characters defines a class in CSS?",
-        choices: ["!", ".", "#", "?"],
+        choices: ["1. !", "2. .", "3. #", "4. ?"],
         answer: 1,
     },
     {
         question: "Which of the following characters defines an Id in CSS?",
-        choices: ["ID", ".", "%", "#"],
+        choices: ["1. ID", "2. .", "3. %", "4. #"],
         answer: 3,
     },
 
 ]
+
 
 var startButton = document.querySelector(".btn");
 var secondsLeft = 60;
@@ -64,17 +65,25 @@ function checkAnswer(selectedChoice) {
 
     } else {
         clearInterval(timerInterval);
-        var initials = prompt("Enter your initials");
-        sendMessage();
+        currentQuestionIndex = "";
+        /*var initials = prompt("Enter your initials");
+        sendMessage();*/
         var highScore = localStorage.getItem("highScore");
         if (!highScore || score > parseInt(highScore)) {
             localStorage.setItem("highScore", score);
-        }
+        };
+        displayScore();
     }
 };
 
 function sendMessage() {
     alert("Quiz ended!\nYour score: " + score);
+};
+
+function displayScore() {
+    var displayScore = document.createElement("h1");
+    displayScore.textContent = "Nice job!\n Your score:" + score;
+    questionBox.appendChild(displayScore);
 };
 
 function startQuiz() {
