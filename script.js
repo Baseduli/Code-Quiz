@@ -102,8 +102,8 @@ startButton.addEventListener("click", function () {
         timeEl.textContent = "Time left: " + secondsLeft;
         if (secondsLeft === 0) {
             clearInterval(timerInterval);
-            var initials = prompt("Enter your initials");
-            sendMessage();
+            /*var initials = prompt("Enter your initials");
+            sendMessage();*/
             var highScore = localStorage.getItem("highScore");
             if (!highScore || score > parseInt(highScore)) {
                 localStorage.setItem("highScore", score);
@@ -116,21 +116,3 @@ startButton.addEventListener("click", function () {
 );
 
 startButton.addEventListener("click", startQuiz);
-
-
-
-/* chatGPT code
-   for (var i = 0; i < quizQuestions.length; i++) {
-   var questionElement = document.createElement("h3");
-   questionElement.textContent = quizQuestions[i].question;
-   questionBox.appendChild(questionElement);
-
-   var choicesElement = document.createElement("ul");
-   for (var j = 0; j < quizQuestion[i].choices.length; j++) {
-       var choiceElement = document.createElement("li");
-       choiceElement.textContent = quizQuestions[i].choices[j];
-       choicesElement.appendChild(choiceElement);
-   }
-   questionBox.appendChild(choicesElement);
-   questionBox.textContent += i + 1 + ". " + question.choices[i] + "\n";
-};*/
